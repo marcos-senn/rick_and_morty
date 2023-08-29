@@ -1,38 +1,39 @@
 import { useState } from "react";
 
-const SearchBar = ({onSearch}) => {
-  
-  const [id,setId] = useState('')
+const SearchBar = ({ onSearch }) => {
+ const [id, setId] = useState("");
 
-   const handleChange = (event) => { //setea el estado con el valor del input que coloca el usuario
-      setId(event.target.value)
-   }
-   
-   const handleKeyPress = (event) => {  //Si el usuario presiona enter se dispara handleSearch
-      if (event.key === "Enter") {
-        handleSearch();
-      }
-    };
+ const handleChange = (event) => {
+  //setea el estado con el valor del input que coloca el usuario
+  setId(event.target.value);
+ };
 
-   const handleSearch = () => {  // Pasa el ID a la función onSearch en el componente Nav, puedo usar un callback direcamente en el componente como
-      //onclick={()=>onSearch(id);setId('')} pero lo hago asi para resetear el id a '' y que no aparezca eso en el input cuando quiere agregar otro id y que quede mas claro
-      onSearch(id)
-      setId('')
-   }
+ const handleKeyPress = (event) => {
+  //Si el usuario presiona enter se dispara handleSearch
+  if (event.key === "Enter") {
+   handleSearch();
+  }
+ };
 
-   return (
-      <div className="SearchBar">
-         <input 
-            placeholder="Ingrese un ID"
-            type='search'
-            value={id} 
-            onChange = {handleChange}
-            onKeyPress={handleKeyPress}
-             
-         />
-         <button onClick={handleSearch}>Agregar</button>
-      </div>
-   );
-}
+ const handleSearch = () => {
+  // Pasa el ID a la función onSearch en el componente Nav, puedo usar un callback direcamente en el componente como
+  //onclick={()=>onSearch(id);setId('')} pero lo hago asi para resetear el id a '' y que no aparezca eso en el input cuando quiere agregar otro id y que quede mas claro
+  onSearch(id);
+  setId("");
+ };
 
-export default SearchBar
+ return (
+  <div className="SearchBar">
+   <input
+    placeholder="Ingrese un ID"
+    type="search"
+    value={id}
+    onChange={handleChange}
+    onKeyPress={handleKeyPress}
+   />
+   <button onClick={handleSearch}>Agregar</button>
+  </div>
+ );
+};
+
+export default SearchBar;

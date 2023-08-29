@@ -1,10 +1,5 @@
 const About = () => {
+ return <p>Soy Marcos y soy un kpo</p>;
+};
 
-    return (
-
-        <p>Soy Marcos y soy un kpo</p>
-
-    )
-}
-
-export default About
+export default About;

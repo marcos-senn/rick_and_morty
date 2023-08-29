@@ -1,33 +1,78 @@
 import { NavLink } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { addFav, removeFav } from "../redux/action";
 
-const Card = ({id,name,status,species,gender,origin,image,onClose}) =>{
-  
-   const handleClose = () => {
-      onClose(id)
+const Card = ({
+ id,
+ name,
+ status,
+ species,
+ gender,
+ origin,
+ image,
+ onClose,
+ addFav,
+ removeFav,
+ myFavorites,
+}) => {
+ const [isFav, setIsFav] = useState(false);
+
+ const handleFavorite = () => {
+  if (isFav) {
+   setIsFav(false);
+   removeFav(id);
+  } else {
+   setIsFav(true);
+   addFav({ id, name, status, species, gender, origin, image });
+  }
+ };
+
+ useEffect(() => {
+  myFavorites.forEach((fav) => {
+   if (fav.id === id) {
+    setIsFav(true);
    }
+  });
+ }, [myFavorites]);
 
-   
+ const handleClose = () => {
+  onClose(id);
+ };
 
-   return (
-      <div className="Card animate__animated animate__fadeInDown">
-         <button onClick={handleClose}>X</button>
+ return (
+  <div className="Card animate__animated animate__fadeInDown">
+   <button onClick={handleFavorite}> {isFav ? "❤️" : "🤍"}</button>
 
-         <NavLink to={`/detail/${id}`} >
+   <button onClick={handleClose}>X</button>
 
-          <h3 className="card-name">{name}</h3>
+   <NavLink to={`/detail/${id}`}>
+    <h3 className="card-name">{name}</h3>
+   </NavLink>
+   <h2>{species}</h2>
+   <h2>{gender}</h2>
+   <h2>{status}</h2>
+   <h2>{origin}</h2>
+   <img src={image} alt="" />
+  </div>
+ );
+};
 
-         </NavLink>
-         <h2>{species}</h2>
-         <h2>{gender}</h2>
-         <h2>{status}</h2>
-         <h2>{origin}</h2>
-         <img src={image} alt='' />
-      </div>
-   );
-}
+const mapDispatchToProps = (dispatch) => {
+ return {
+  addFav: (character) => {
+   dispatch(addFav(character));
+  }, //tengo que retornar siempre porque al reducer necesito pasarle un objeto, que es lo que se retorna al ejecutar, si no la ejecuto le paso solamente la fucnion
+  removeFav: (id) => {
+   dispatch(removeFav(id));
+  },
+ };
+};
 
-export default Card
+const mapStateProps = (state) => {
+ return {
+  myFavorites: state.myFavorites,
+ };
+};
 
-
-
-
+export default connect(mapStateProps, mapDispatchToProps)(Card);
