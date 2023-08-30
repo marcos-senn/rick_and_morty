@@ -76,7 +76,7 @@ function App() {
 
     <Route path="/favorites" element={<Favorites/>}/>
 
-    <Route path="*" element={<NotFound />} />
+    <Route path="*" element={<NotFound />}/>
    </Routes>
   </div>
  );

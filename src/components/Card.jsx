@@ -34,7 +34,7 @@ const Card = ({
     setIsFav(true);
    }
   });
- }, [myFavorites]);
+ }, [myFavorites, id]);
 
  const handleClose = () => {
   onClose(id);
