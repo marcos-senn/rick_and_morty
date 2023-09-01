@@ -1,14 +1,14 @@
 import "./App.css";
-import About from "./components/About";
-import Cards from "./components/Cards.jsx";
-import Nav from "./components/Nav";
+import About from "./components/About/About";
+import Cards from "./components/Cards/Cards.jsx";
+import Nav from "./components/Nav/Nav";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import Detail from "./components/Detail";
-import NotFound from "./components/NotFound";
-import Form from "./components/Form";
-import Favorites from "./components/Favorites";
+import Detail from "./components/Detail/Detail";
+import NotFound from "./components/NotFound/NotFound";
+import Form from "./components/Form/Form";
+import Favorites from "./components/Favorites/Favorites";
 
 const email = "marcos@gmail.com";
 const password = "abcdef1";
@@ -74,9 +74,9 @@ function App() {
      element={<Detail characters={characters} />}
     ></Route>
 
-    <Route path="/favorites" element={<Favorites/>}/>
+    <Route path="/favorites" element={<Favorites />} />
 
-    <Route path="*" element={<NotFound />}/>
+    <Route path="*" element={<NotFound />} />
    </Routes>
   </div>
  );

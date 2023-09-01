@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { addFav, removeFav } from "../redux/action";
+import { addFav, removeFav } from "../../redux/action";
 
 const Card = ({
  id,
@@ -29,7 +29,7 @@ const Card = ({
  };
 
  useEffect(() => {
-  myFavorites.forEach((fav) => {
+  myFavorites.some((fav) => {
    if (fav.id === id) {
     setIsFav(true);
    }
