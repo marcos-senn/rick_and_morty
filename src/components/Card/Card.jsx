@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { addFav, removeFav } from "../../redux/action";
+import style from "./card.module.css";
 
 const Card = ({
  id,
@@ -41,19 +42,35 @@ const Card = ({
  };
 
  return (
-  <div className="Card animate__animated animate__fadeInDown">
-   <button onClick={handleFavorite}> {isFav ? "❤️" : "🤍"}</button>
+  <div className={style.card_container}>
+   <div className={style.card_buttons}>
+    <button className={style.button} onClick={handleFavorite}>
+     {" "}
+     {isFav ? "❤️" : "🤍"}
+    </button>
+    <button className={style.button} onClick={handleClose}>
+     X
+    </button>
+   </div>
 
-   <button onClick={handleClose}>X</button>
+   <div className={style.card_image}>
+    <img className={style.img} src={image} alt="" />
+   </div>
 
-   <NavLink to={`/detail/${id}`}>
-    <h3 className="card-name">{name}</h3>
-   </NavLink>
-   <h2>{species}</h2>
-   <h2>{gender}</h2>
-   <h2>{status}</h2>
-   <h2>{origin}</h2>
-   <img src={image} alt="" />
+   <div className={style.card_info_container}>
+    <div className="card_character_name">
+     <NavLink className={style.navlink} to={`/detail/${id}`}>
+      <h1 className={style.h1}>{name}</h1>
+     </NavLink>
+    </div>
+
+    <div className="card_character_info">
+     <h2>{species}</h2>
+     <h2>{gender}</h2>
+     <h2>{status}</h2>
+     <h2>{origin}</h2>
+    </div>
+   </div>
   </div>
  );
 };

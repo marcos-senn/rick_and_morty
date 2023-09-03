@@ -1,5 +1,6 @@
 import { useState } from "react";
 import validation from "../Validation/Validation";
+import style from './form.module.css'
 
 const Form = ({ login }) => {
  const [errors, setErrors] = useState({});
@@ -31,10 +32,10 @@ const Form = ({ login }) => {
  };
 
  return (
-  <div>
+  <div className={style.login}>
    <form onSubmit={handleSubmit}>
-    <label htmlFor="email">Email</label>
-    <input
+    <label htmlFor="email"></label>
+    <input className={style.input}
      type="email"
      name="email"
      onChange={handleChange}
@@ -45,8 +46,8 @@ const Form = ({ login }) => {
 
     {errors.email && <p>{errors.email}</p>}
 
-    <label htmlFor="password">Password</label>
-    <input
+    <label htmlFor="password"></label>
+    <input className={style.input}
      type="password"
      name="password"
      onChange={handleChange}
@@ -56,7 +57,7 @@ const Form = ({ login }) => {
 
     {errors.password && <p>{errors.password}</p>}
 
-    <button type="sumbit">Submit</button>
+    <button className={style.button} type="sumbit">Submit</button>
    </form>
   </div>
  );
