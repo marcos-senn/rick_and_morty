@@ -32,7 +32,7 @@ function App() {
 
  const onSearch = (id) => {
   //este id es el state (lo que escribe el usuario) cuando se ejecuta handleSearch en el button
-  axios(`https://rickandmortyapi.com/api/character/${id}`)
+  axios(`http://localhost:3001/rickandmorty/character/${id}`)
    .then(({ data }) => {
     if (characters.some((character) => character.id === data.id)) {
      alert("¡El personaje ya está en la lista!");
