@@ -1,18 +1,15 @@
-const { start } = require('repl');
-const data = require('./utils/data') 
+
+const { getCharById } = require('./controllers/getCharById') 
 
 const http = require('http')
 
 http
 .createServer((req,res)=>{
     res.setHeader('Access-Control-Allow-Origin', '*');
-
+    
     if(req.url.includes("/rickandmorty/character")){
-        let id = req.url.split('/').at(-1)
-        let character = data.find((element)=>{return element.id === Number(id)})
-        
-        res.writeHead(200,{"Content-type":"application/json"})
-        return res.end(JSON.stringify(character))
+        let id = req.url.split('/')
+        getCharById(res,req.url.split('/').at(-1))
     }
 
     else {
@@ -21,3 +18,9 @@ http
     }
 })
 .listen(3001)
+
+
+// const express = require('express')
+// const server = express()
+
+// server.listen(3001)
