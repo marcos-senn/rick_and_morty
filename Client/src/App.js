@@ -28,7 +28,7 @@ function App() {
 
  useEffect(() => {
   !access && navigate("/");
- }, [access]);
+ }, [access, navigate]);
 
  const onSearch = (id) => {
   //este id es el state (lo que escribe el usuario) cuando se ejecuta handleSearch en el button
@@ -37,6 +37,7 @@ function App() {
     if (characters.some((character) => character.id === data.id)) {
      alert("¡El personaje ya está en la lista!");
     } else if (data.name) {
+     console.log(characters);
      setCharacters((characters) => [...characters, data]);
     } else {
      alert("¡No hay personajes con este ID!");

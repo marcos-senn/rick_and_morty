@@ -16,21 +16,29 @@ const Card = ({
  addFav,
  removeFav,
  myFavorites,
+ character,
 }) => {
  const [isFav, setIsFav] = useState(false);
+ const [closeButton, setCloseButton] = useState(true);
+
+ useEffect(() => {
+  if (!onClose) {
+   setCloseButton(false);
+  }
+ }, []);
 
  const handleFavorite = () => {
-  if (isFav) {
-   setIsFav(false);
-   removeFav(id);
-  } else {
-   setIsFav(true);
+  if (!isFav) {
    addFav({ id, name, status, species, gender, origin, image });
+   setIsFav(true);
+  } else {
+   removeFav(id);
+   setIsFav(false);
   }
  };
 
  useEffect(() => {
-  myFavorites.some((fav) => {
+  myFavorites.forEach((fav) => {
    if (fav.id === id) {
     setIsFav(true);
    }
@@ -44,13 +52,21 @@ const Card = ({
  return (
   <div className={style.card_container}>
    <div className={style.card_buttons}>
-    <button className={style.button} onClick={handleFavorite}>
-     {" "}
-     {isFav ? "❤️" : "🤍"}
-    </button>
-    <button className={style.button} onClick={handleClose}>
-     X
-    </button>
+    {isFav ? (
+     <button onClick={() => handleFavorite(id)}>❤️</button>
+    ) : (
+     <button onClick={() => handleFavorite(character)}>🤍</button>
+    )}
+
+    {closeButton && (
+     <button
+      onClick={() => {
+       onClose(id);
+      }}
+     >
+      X
+     </button>
+    )}
    </div>
 
    <div className={style.card_image}>
