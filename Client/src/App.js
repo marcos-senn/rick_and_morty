@@ -10,21 +10,21 @@ import NotFound from "./components/NotFound/NotFound";
 import Form from "./components/Form/Form";
 import Favorites from "./components/Favorites/Favorites";
 
-const email = "marcos@gmail.com";
-const password = "abcdef1";
-
 function App() {
  const location = useLocation();
  const [characters, setCharacters] = useState([]);
  const navigate = useNavigate();
- const [access, SetAcces] = useState(false);
+ const [access, setAccess] = useState(false);
 
- const login = (userData) => {
-  if (userData.email === email && userData.password === password) {
-   SetAcces(true);
-   navigate("/home");
-  }
- };
+ function login(userData) {
+  const { email, password } = userData;
+  const URL = "http://localhost:3001/rickandmorty/login/";
+  axios(URL + `?email=${email}&password=${password}`).then(({ data }) => {
+   const { access } = data;
+   setAccess(access);
+   access && navigate("/home");
+  });
+ }
 
  useEffect(() => {
   !access && navigate("/");

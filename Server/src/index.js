@@ -1,26 +1,24 @@
+const {router} = require('./routes/index.js')
+const express = require('express')
+const server = express()
+const PORT = 3001
 
-const { getCharById } = require('./controllers/getCharById') 
+server.use(express.json()) //Pasa lo que me llega como json a JS
 
-const http = require('http')
+server.use((req, res, next) => {
+   res.header('Access-Control-Allow-Origin', '*');
+   res.header('Access-Control-Allow-Credentials', 'true');
+   res.header(
+      'Access-Control-Allow-Headers',
+      'Origin, X-Requested-With, Content-Type, Accept'
+   );
+   res.header(
+      'Access-Control-Allow-Methods',
+      'GET, POST, OPTIONS, PUT, DELETE'
+   );
+   next();
+});
+ 
+server.use('/rickandmorty',router)
 
-http
-.createServer((req,res)=>{
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    
-    if(req.url.includes("/rickandmorty/character")){
-        let id = req.url.split('/')
-        getCharById(res,req.url.split('/').at(-1))
-    }
-
-    else {
-        res.writeHead(404, { "content-type": "text/plain" });
-        res.end("Error 404")
-    }
-})
-.listen(3001)
-
-
-// const express = require('express')
-// const server = express()
-
-// server.listen(3001)
+server.listen(PORT,()=>{console.log(`Sever rised in por ${PORT}`)})
