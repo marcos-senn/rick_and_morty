@@ -3,6 +3,7 @@ const express = require('express')
 const server = express()
 const PORT = 3001
 const morgan = require('morgan')
+const {sequelize} = require('./DB_connection.js')
 
 
 
@@ -24,4 +25,7 @@ server.use((req, res, next) => {
  
 server.use('/rickandmorty',router)
 
-server.listen(PORT,()=>{console.log(`Sever rised in por ${PORT}`)})
+server.listen(PORT,()=>{
+   sequelize.sync({force: true});
+   console.log(`Sever rised in por ${PORT}`)
+})

@@ -46,6 +46,7 @@ const Card = ({
  }, [myFavorites, id]);
 
  const handleClose = () => {
+    console.log('cerrando tarjeta')
   onClose(id);
  };
 
@@ -61,7 +62,8 @@ const Card = ({
     {closeButton && (
      <button
       onClick={() => {
-       onClose(id);
+        console.log('funcionando')
+        handleClose();
       }}
      >
       X
